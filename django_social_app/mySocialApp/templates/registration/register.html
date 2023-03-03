@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div>
+    <h2 class="title is-2 ">Register here</h2>
+    {% if messages %}
+    <article class="message is-danger">
+        <div class="message-header">
+            <ul style="display: grid;">
+                {% for message in messages %}
+                <li>{{message}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </article>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %} 
+        <div class="field">
+            <div class="control has-icons-left has-icons-right">
+                <input class="input is-success" maxlength="150" name="username" autocapitalize="none" autocomplete="username" autofocus="" required="" id="id_username" type="text" placeholder="Username" >
+                <span class="icon is-small is-left">
+                    <i class="fas fa-user"></i>
+                </span>
+                <span class="icon is-small is-right">
+                    <i class="fas fa-check"></i>
+                </span>
+            </div>
+        </div>
+        <div class="field">
+            <div class="control has-icons-left has-icons-right">
+                <input class="input is-danger" type="email" placeholder="Email" id="id_email" name="email" >
+                <span class="icon is-small is-left">
+                    <i class="fas fa-envelope"></i>
+                </span>
+                <span class="icon is-small is-right">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </span>
+            </div>
+        </div>
+        <div class="field">
+            <p class="control has-icons-left">
+              <input class="input" type="password" name="password1" autocomplete="new-password" required="" id="id_password1" placeholder="Password">
+              <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+              </span>
+            </p>
+        </div>
+        <div class="field">
+            <p class="control has-icons-left">
+              <input class="input" type="password" name="password2" autocomplete="new-password" required="" id="id_password2" placeholder="Password">
+              <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+              </span>
+            </p>
+        </div>
+        <button class="button is-success is-light is-outlined " style="margin:1rem">Register</button>
+        <div>Already have and account <a href="{% url 'mySocialApp:Login' %}">Log in</a></div>
+    </form>
+</div>
+
+{% endblock content %}

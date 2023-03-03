@@ -1,0 +1,42 @@
+
+{% extends 'base.html' %}
+{% block content %}
+<div style="width: 40vw;">
+    <h2 style="font-size: 2rem;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;margin-bottom: 1rem;">Login</h2>
+    {% if messages %}
+    <article class="message is-danger">
+        <div class="message-header">
+            {% for message in messages %}
+            <li>{{message}}</li>
+            {% endfor %}
+        </div>
+    </article>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="field">
+            <div class="control has-icons-left has-icons-right">
+                <input class="input is-success" maxlength="150" name="username" autocapitalize="none" autocomplete="username" autofocus="" required="" id="id_username" type="text" placeholder="Username" >
+                <span class="icon is-small is-left">
+                    <i class="fas fa-user"></i>
+                </span>
+                <span class="icon is-small is-right">
+                    <i class="fas fa-check"></i>
+                </span>
+            </div>
+        </div>
+        <div class="field">
+            <p class="control has-icons-left">
+              <input class="input" type="password" name="password" autocomplete="new-password" required="" id="id_password" placeholder="Password">
+              <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+              </span>
+            </p>
+        </div>
+        <button class="button is-success is-light is-outlined " style="margin:1rem;margin-left: 0px;">Login</button>
+    </form>
+    <div>Don't have an account <a href="{% url 'mySocialApp:register' %}">Register</a></div>
+</div>
+
+
+{% endblock content %}

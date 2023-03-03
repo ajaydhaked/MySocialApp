@@ -1,0 +1,86 @@
+
+{% extends 'base.html' %}
+{% block content %}
+<div class="tile is-ancestor">
+    <div class="tile is-vertical is-8">
+        <div class="tile is-parent">
+            <article class="tile is-child notification is-light ">
+                {% comment %} {% if user.profile.image %}
+                <figure class="image is-128x128">
+                    {% load static %}
+                    <img class="is-rounded" src="profileImage{{user.profile.image.url}}">
+                </figure>
+                {% endif %} {% endcomment %}
+                <p class="title ">{{profile.user.username|upper}}</p>
+                <p class="subtitle"></p>
+                {% if profile != user.profile %}
+                <div class="content" style="margin-top: 2rem;">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="buttons">
+                            {% if profile in user.profile.follows.all %}
+                            <button class="button is-primary is-static" style="border-top-right-radius: 0px;border-bottom-right-radius: 0px; margin-right: 0px;">Follow</button>
+                            <button class="button is-danger" name="follow" value="unfollow" style="border-top-left-radius: 0px;border-bottom-left-radius: 0px;margin-left: 0px;">Unfollow</button>
+                            {% else %}
+                            <button class="button is-primary" name="follow" value="follow" style="border-top-right-radius: 0px;border-bottom-right-radius: 0px; margin-right: 0px;">Follow</button>
+                            <button class="button is-danger is-static" style="border-top-left-radius: 0px;border-bottom-left-radius: 0px;margin-left: 0px;">Unfollow</button>
+                            {% endif %}
+                        </div>
+                    </form>
+                </div>
+                {% endif %}
+                <div class="content" style="margin-top: 2rem;">
+                    <div class="content">
+                        {% for dweet in profile.user.dweets.all %}
+                        <div class="box p ">
+                            {{dweet.body}}
+                            <span class="is-small has-text-grey-light">        
+                                ({{dweet.created_at}})
+                            </span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+    <div class="tile is-parent">
+        <article class="tile is-child notification is-white">
+            <div class="content">
+                <div class="content">
+                    <a href="{% url 'mySocialApp:profile_list' %}" style="text-decoration: none;"><button class="button is-info mb-3 panelstyle="text-decoration: none; >All Profiles</button></a>
+                    {% if profile == user.profile %}
+                        <a href="{% url 'mySocialApp:logout' %}?next={% url 'mySocialApp:dashboard' %}" style="text-decoration: none;"><button class="button is-info mb-3 panelstyle=" >Log Out</button></a>
+                    {% endif %}
+                    <article class="panel is-info">
+                        <p class="panel-heading">
+                            {{profile.user.username}} Follows|{{profile.follows.all|length}}
+                        </p>
+                        {% for follows in profile.follows.all %}
+                            <a class="panel-block  button is-light" href="{% url 'mySocialApp:profile' follows.id %}">
+                                <span class="panel-icon">
+                                    <i class="fas fa-book" aria-hidden="true"></i>
+                                </span>
+                                {{follows}}
+                            </a>
+                        {% endfor %}
+                    </article>
+                    <article class="panel is-info">
+                        <p class="panel-heading ">
+                            {{profile.user.username}} is Followed by|{{profile.followed_by.all|length}}
+                        </p>
+                        {% for follows in profile.followed_by.all %}
+                            <a class="panel-block  button is-light" href="{% url 'mySocialApp:profile' follows.id %}">
+                                <span class="panel-icon">
+                                    <i class="fas fa-book" aria-hidden="true"></i>
+                                </span>
+                                {{follows}}
+                            </a>
+                        {% endfor %}
+                    </article>
+                </div>
+            </div>
+        </article>
+    </div>
+</div>
+{% endblock content %}

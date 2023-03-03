@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <title>MySocialApp</title>
+</head>
+<body>
+    <a href="{% url 'mySocialApp:dashboard' %} ">
+        <section class="hero is-small is-success mb-4">
+            <div class="hero-body" style="padding: 0.5rem;">
+                <h1 class="title is-4">My Social App</h1>
+                <p class="subtitle is-6">Our Tiny Social media network</p>
+            </div>
+        </section>
+    </a>
+    <div >
+        <div style="display: flex; justify-content: space-around;">
+            {%block content%}
+            {% endblock content %}
+        </div>
+    </div>
+</body>
+</html>
